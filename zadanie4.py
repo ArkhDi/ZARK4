@@ -3,14 +3,14 @@ from scipy.special import spherical_jn, spherical_yn
 import requests
 import matplotlib.pyplot as plt
 
-class RCSCalculator:
+class ESACalculator:
     def __init__(self, diameter, fmin, fmax):
         self.diameter = diameter
         self.radius = diameter / 2
         self.fmin = fmin
         self.fmax = fmax
 
-    def calculate_rcs(self, frequency):
+    def calculate_esa(self, frequency):
         k = 2 * np.pi * frequency / 3e8  
         r = self.radius
         lambda_ = 3e8 / frequency  
@@ -34,14 +34,14 @@ class RCSCalculator:
         
         return (k * r * jn_minus_1 - n * jn) / (k * r * hn_minus_1 - n * hn)
 
-class RCSResultSaver:
+class ESAResultSaver:
     def __init__(self, filename):
         self.filename = filename
 
-    def save_results(self, frequencies, rcs_values):
+    def save_results(self, frequencies, esa_values):
         with open(self.filename, 'w') as file:
-            for freq, rcs in zip(frequencies, rcs_values):
-                file.write(f"{freq:14.6e}{'':4}{rcs:14.6e}\n")
+            for freq, rcs in zip(frequencies, esa_values):
+                file.write(f"{freq:14.6e}{'':4}{esa:14.6e}\n")
    
 
 def main():
@@ -60,21 +60,21 @@ def main():
     print(fmax)
 
    
-    rcs_calculator = RCSCalculator(diameter, fmin, fmax)
+    esa_calculator = ESACalculator(diameter, fmin, fmax)
 
     frequencies = np.linspace(fmin, fmax, 400)
 
-    rcs_values = [rcs_calculator.calculate_rcs(freq) for freq in frequencies]
+    esa_values = [esa_calculator.calculate_esa(freq) for freq in frequencies]
 
     
-    result_saver = RCSResultSaver("results.txt")
-    result_saver.save_results(frequencies, rcs_values)
+    result_saver = ESAResultSaver("results.txt")
+    result_saver.save_results(frequencies, esa_values)
     
     plt.figure(figsize=(10, 10)) 
-    plt.plot(frequencies, rcs_values)
+    plt.plot(frequencies, esa_values)
     plt.xlabel("FREQ (Hz)")
-    plt.ylabel("RCS (m²)")
-    plt.title("RCS FROM FREQ")
+    plt.ylabel("ESA (m²)")
+    plt.title("ESA FROM FREQ")
     plt.grid(True)  
     plt.show()
    
