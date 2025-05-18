@@ -27,7 +27,7 @@ class RCSCalculator:
 
     def b_n(self, k, r, n):
         jn_minus_1=spherical_jn(n-1, k * r)
-        hn_minus_1=spherical_jn(n , k * r) + 1j * spherical_yn(n, k * r)
+        hn_minus_1=spherical_jn(n-1 , k * r) + 1j * spherical_yn(n-1, k * r)
         jn = spherical_jn(n , k * r)
         hn = spherical_jn(n , k * r) + 1j * spherical_yn(n, k * r)
         
