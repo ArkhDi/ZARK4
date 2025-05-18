@@ -72,11 +72,10 @@ def main():
     
     plt.figure(figsize=(10, 10)) 
     plt.plot(frequencies, rcs_values)
-    plt.xlabel("Частота (Гц)")
-    plt.ylabel("ЭПР (м²)")
-    plt.title("Зависимость ЭПР от частоты")
+    plt.xlabel("FREQ (Hz)")
+    plt.ylabel("RCS (m²)")
+    plt.title("RCS FROM FREQ")
     plt.grid(True)  
-    plt.yscale('log') 
     plt.show()
    
 
